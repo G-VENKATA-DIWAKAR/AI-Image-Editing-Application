@@ -1,3 +1,5 @@
+//pip install Flask flask-cors Pillow numpy opencv-python
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from PIL import Image, ImageEnhance
