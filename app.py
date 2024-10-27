@@ -1,4 +1,4 @@
-//pip install Flask flask-cors Pillow numpy opencv-python
+# pip install Flask Flask-Cors Pillow opencv-python
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -10,7 +10,6 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# Directory for storing uploaded images
 UPLOAD_FOLDER = 'uploads'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
@@ -36,9 +35,7 @@ def enhance_image():
     contrast_factor = data.get('contrast', 1.0)
 
     try:
-        # Open image using Pillow
         img = Image.open(file_path)
-        # Adjust brightness and contrast
         enhancer = ImageEnhance.Brightness(img)
         img = enhancer.enhance(brightness_factor)
         enhancer = ImageEnhance.Contrast(img)
@@ -56,10 +53,7 @@ def remove_background():
     data = request.json
     file_path = data.get('file_path')
 
-    # Load image with OpenCV
     img = cv2.imread(file_path)
-    # Basic background removal logic (for demonstration purposes)
-    # You can implement advanced methods using deep learning models
     mask = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     _, mask = cv2.threshold(mask, 127, 255, cv2.THRESH_BINARY_INV)
 
@@ -71,14 +65,10 @@ def remove_background():
 
 @app.route('/style-transfer', methods=['POST'])
 def style_transfer():
-    # Placeholder function for style transfer
-    # Implement style transfer using a pre-trained model
     return jsonify({'message': 'Style transfer functionality not implemented yet.'}), 501
 
 @app.route('/face-enhancement', methods=['POST'])
 def face_enhancement():
-    # Placeholder function for face enhancement
-    # Implement face enhancement using a pre-trained model
     return jsonify({'message': 'Face enhancement functionality not implemented yet.'}), 501
 
 if __name__ == '__main__':
